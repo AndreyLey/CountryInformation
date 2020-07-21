@@ -24,8 +24,8 @@ function Continent(props) {
     <tr>
       <td>EU</td>
       <td>
-        {/* <Link to="/country_card">Europe</Link> */}
-        <button onClick={props.history.push('/country_card')}/>
+        <Link to="/country_card">Europe</Link>
+        {/* <button onClick={props.history.push('/country_card')}/> */}
       </td>
     </tr>
     <tr>
