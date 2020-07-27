@@ -29,7 +29,7 @@ namespace CountryProxy
         {
             services.Configure<DbSetting>(Configuration.GetSection(nameof(DbSetting)));
             services.AddSingleton<IDbSetting>(sp => sp.GetRequiredService<IOptions<DbSetting>>().Value);
-            services.AddSingleton<ICashConnector, InMemoryCash>();
+            services.AddSingleton<ICashConnector, RedisDbConnector>();
             services.AddSingleton<ICountryLoader, HttpCountryLoader>();
             services.AddSingleton<ICountryProxyService, CountryProxyService>();
             services.AddControllers();

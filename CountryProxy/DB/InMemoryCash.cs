@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CountryProxy.DB
 {
-    public class InMemoryCash: ICashConnector
+    public class InMemoryCash
     {
         ConcurrentDictionary<string, List<Country>> _countriesByRegion=new ConcurrentDictionary<string, List<Country>>();
         ConcurrentDictionary<string, Country> _dataByCountry =new ConcurrentDictionary<string, Country>();

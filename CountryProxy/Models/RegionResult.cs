@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace CountryProxy.Models
 {
-    public class RegionResult : BaseResult
+    public class CountryResult : BaseResult
     {
         public Region region { get; set; }
-        public RegionResult() : base() { }
+        public CountryResult() : base() { }
 
-        public RegionResult(Region region) : base()
+        public CountryResult(Region region) : base()
         {
             this.region = region;
         }
         
-        public RegionResult(List<Country> countries) : base()
+        public CountryResult(List<string> countries) : base()
         {
             this.region = new Region()
             {

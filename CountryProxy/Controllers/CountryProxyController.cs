@@ -32,16 +32,14 @@ namespace CountryProxy.Controllers
         [HttpGet("regions/{region}/countries")]
         public IActionResult GetCountries(string region)
         {
-            RegionResult result = new RegionResult(_countryProxyService.GetCountriesByRegion(region));
-            return new JsonResult(result);
-            //return new List<string>() { region };
+            //CountryResult result = new CountryResult(_countryProxyService.GetCountriesByRegion(region));
+            return new JsonResult(_countryProxyService.GetCountriesByRegion(region));
         }
 
         [HttpGet("regions/{region}/countries/{country}")]
         public IActionResult GetCountryByName(string region, string country)
         {
             return new JsonResult(_countryProxyService.GetCountryByName(country));
-            //return new List<string>() { "Usa" };
         }
 
     }

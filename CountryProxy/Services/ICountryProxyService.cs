@@ -5,7 +5,7 @@ namespace CountryProxy.Services
 {
     public interface ICountryProxyService
     {
-        List<Country> GetCountriesByRegion(string regionName);
+        List<string> GetCountriesByRegion(string regionName);
         Country GetCountryByName(string countryName);
 
     }

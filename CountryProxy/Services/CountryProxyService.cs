@@ -18,13 +18,14 @@ namespace CountryProxy.Services
 
         }
 
-        public List<Country> GetCountriesByRegion(string regionName)
+        public List<string> GetCountriesByRegion(string regionName)
         {
-            List<Country> countries = _cashConnector.GetCountriesByRegion(regionName);
-            if (countries==null || countries.Count>0)
+            List<Country> countriesObj = new List<Country>();
+            List<string> countries = _cashConnector.GetCountriesByRegion(regionName);
+            if (countries==null || countries.Count==0)
             {
-                countries = _countryLoader.GetCountriesByRegion(regionName);
-                _cashConnector.AddRegion(regionName, countries);
+                countriesObj = _countryLoader.GetCountriesByRegion(regionName);
+                countries=_cashConnector.AddRegion(regionName, countriesObj);
             }
             return countries;
         }
@@ -41,13 +42,5 @@ namespace CountryProxy.Services
             }
             return country;
         }
-        
-        public DateTime Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string Summary { get; set; }
     }
 }

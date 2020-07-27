@@ -8,9 +8,9 @@ namespace CountryProxy.DB
 {
     public interface ICashConnector
     {
-        List<Country> GetCountriesByRegion(string regionName);
+        List<string> GetCountriesByRegion(string regionName);
         Country GetCountryByName(string countryName);
-        List<Country> AddRegion(string regionName, List<Country> countries);
+        List<string> AddRegion(string regionName, List<Country> countries);
         Country AddCountryData(string countryName, Country country);
     }
 }
