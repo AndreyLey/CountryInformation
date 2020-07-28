@@ -14,7 +14,7 @@ namespace CountryProxy.Services
         {
             _countryLoader = countryLoader;
             _cashConnector = cashConnector;
-            Console.WriteLine("IndexerService initialized");
+            Console.WriteLine("CountryProxyService initialized");
 
         }
 

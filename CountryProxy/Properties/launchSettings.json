@@ -21,7 +21,9 @@
       "commandName": "Project",
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "CASH_PORT": "5001",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CASH_HOST": "localhost"
       },
       "applicationUrl": "http://localhost:5000"
     }

@@ -29,7 +29,19 @@ namespace CountryProxy
         {
             services.Configure<DbSetting>(Configuration.GetSection(nameof(DbSetting)));
             services.AddSingleton<IDbSetting>(sp => sp.GetRequiredService<IOptions<DbSetting>>().Value);
-            services.AddSingleton<ICashConnector, RedisDbConnector>();
+            string cashHost=Environment.GetEnvironmentVariable("CASH_HOST");
+            if(String.IsNullOrEmpty(cashHost))
+            {
+                Console.WriteLine("Host for cash isn't configurated");
+            }
+            string cashPort= Environment.GetEnvironmentVariable("CASH_PORT");
+            if (String.IsNullOrEmpty(cashPort))
+            {
+                Console.WriteLine("Port for cash isn't configurated");
+            }
+            var cash = new RedisDbConnector(cashHost,cashPort);
+            services.AddSingleton<ICashConnector>(cash);
+            //services.AddSingleton<ICashConnector, RedisDbConnector>();
             services.AddSingleton<ICountryLoader, HttpCountryLoader>();
             services.AddSingleton<ICountryProxyService, CountryProxyService>();
             services.AddControllers();

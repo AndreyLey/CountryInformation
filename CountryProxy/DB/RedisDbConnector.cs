@@ -1,5 +1,6 @@
 ﻿using CountryProxy.Models;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Microsoft.Extensions.Hosting;
 using ServiceStack;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
@@ -7,6 +8,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace CountryProxy.DB
@@ -21,15 +23,19 @@ namespace CountryProxy.DB
     public class RedisDbConnector : ICashConnector
     {
 
-        ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost:5001");
+        private ConnectionMultiplexer _redis; 
 
         private readonly string name = "name";
         private readonly string code = "code";
         private readonly string capital = "capital";
         private readonly string flag = "flag";
 
-        public RedisDbConnector()
-        { }
+        public RedisDbConnector(string hostName, string port)
+        {
+
+            _redis = ConnectionMultiplexer.Connect($"{hostName}:{port}");
+            Console.WriteLine($"Redis service initialized and runing on: {hostName}:{port}");
+        }
         public Country AddCountryData(string countryName, Country country)
         {
             Country countryResult = new Country();
@@ -38,7 +44,7 @@ namespace CountryProxy.DB
 
             try
             {
-                IDatabase db = redis.GetDatabase((int)RedisDB.COUNTRY_DB);
+                IDatabase db = _redis.GetDatabase((int)RedisDB.COUNTRY_DB);
                 foreach (var property in country.GetType().GetProperties())
                 {
                     hashEntries.Add(new HashEntry(new RedisValue(property.Name), new RedisValue(property.GetValue(country, null).ToString())));
@@ -61,22 +67,10 @@ namespace CountryProxy.DB
             List<string> countriesList = new List<string>();
             RedisKey redisKey = new RedisKey(regionName);
             List<RedisValue> redisValues = new List<RedisValue>();
-            ////Dictionary<string, Country> codeCountry = countries.ToDictionary(c=>c.Code, c=>c);
-            //HashEntry[] redisEntry = new HashEntry[countries.Count];
-            //int i = 0;
-            //countries.ForEach(c =>
-            //{
-            //    countriesList.Add(c.Name);
-            //    redisEntry[i] = new HashEntry(new RedisValue(c.Code), new RedisValue(c.Name));
-            //    i++;
-            //}
-            //);
 
-            //IDatabase db = redis.GetDatabase(0);
-            //db.HashSet(new RedisKey(regionName), redisEntry);
             try
             {
-                IDatabase db = redis.GetDatabase((int)RedisDB.REGION_DB);
+                IDatabase db = _redis.GetDatabase((int)RedisDB.REGION_DB);
                 countries.ForEach(c =>
                 {
                     redisValues.Add(c.Name);
@@ -100,16 +94,7 @@ namespace CountryProxy.DB
             List<string> countries = new List<string>();
             try
             {
-                //IDatabase db = redis.GetDatabase(0);
-                //RedisValue[] results = db.HashValues(regionName);
-                //foreach(var country in results)
-                //{
-                //    if(!country.IsNullOrEmpty)
-                //    {
-                //        countries.Add(country.ToString());
-                //    }
-                //}
-                IDatabase db = redis.GetDatabase((int)RedisDB.REGION_DB);
+                IDatabase db = _redis.GetDatabase((int)RedisDB.REGION_DB);
                 RedisValue[] results = db.ListRange(regionName);
                 countries = results.Select(res => res.ToString()).ToList();
             }
@@ -126,7 +111,7 @@ namespace CountryProxy.DB
             Country country = null;
             try
             {
-                IDatabase db = redis.GetDatabase((int)RedisDB.COUNTRY_DB);
+                IDatabase db = _redis.GetDatabase((int)RedisDB.COUNTRY_DB);
                 RedisValue[] results = db.HashValues(countryName);
                 if(results!=null && results.Length>0)
                 {
@@ -136,13 +121,6 @@ namespace CountryProxy.DB
                     country.Capital = results[2];
                     country.Flag = results[3];
                 }
-                //for(int i=0; i<result.Count;i++)
-                //{
-                //    if(!result[i].IsNullOrEmpty)
-                //    {
-                //        countries.Add(country.ToString());
-                //    }
-                //} 
             }
             catch (Exception e)
             {
