@@ -44,6 +44,15 @@ namespace CountryProxy
             //services.AddSingleton<ICashConnector, RedisDbConnector>();
             services.AddSingleton<ICountryLoader, HttpCountryLoader>();
             services.AddSingleton<ICountryProxyService, CountryProxyService>();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000");
+                    });
+            });
             services.AddControllers();
         }
 
@@ -56,7 +65,7 @@ namespace CountryProxy
             }
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
