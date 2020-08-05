@@ -1,20 +1,17 @@
-import React, { Component, useEffect,useState } from 'react';
-import CountryCode from '../CountryCode/CountryCode';
-import CountryName from '../CountryName/CountryName';
-import Flag from '../Flag/Flag';
-import './CountryCard.css';
+import React, { Component, useState,useEffect } from 'react';
 
-function CountryCard (props) {
+function CountriesCard(props) {
+   
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [country, setCountry] = useState(new Object());
+  const [countries, setCountries] = useState([]);
 
   const loadContent = async()=>{
     try{
-      const response = await fetch("http://localhost:5000/regions/Europe/countries/german");
+      const response = await fetch("http://localhost:5000/regions/Europe/countries");
       const json = await response.json();
       console.log(json);
-      setCountry(json);
+      setCountries(json);
     }
     catch(error)
     {
@@ -41,11 +38,17 @@ function CountryCard (props) {
   // } else {
      return (
      <div>
-      <CountryCode code={country.code}/>
+       CountriesCard
+       <ul>
+         {countries.map(country=>
+          <li> {country}</li>)}
+      </ul>
+      {/* <CountryCode code={country.code}/>
       <CountryName name={country.name} capital={country.capital}/>
-      <Flag flagUrl={country.flag}/>
+      <Flag flagUrl={country.flag}/> */}
      </div>
   );
+  
 }
 
-export default CountryCard;
+export default CountriesCard;

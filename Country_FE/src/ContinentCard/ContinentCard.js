@@ -5,7 +5,7 @@ function ContinentCard (props) {
   
   return (
   <div>
-    <Continent history={props.history}/>
+    <Continent history={props.history} regions={props.regions}/>
   </div>
   );
 }

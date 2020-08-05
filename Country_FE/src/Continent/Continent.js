@@ -6,42 +6,27 @@ import CountryCard from '../CountryCard/CountryCard';
 
 function Continent(props) {
     return (
-    <Router>
+    
     <div id="outPopUp">
+
       <table id="leftText">
-    <tr>
-      <th>Code</th>
-      <th>Continent Name</th> 
-    </tr>
-    <tr>
-      <td>AF</td>
-      <td>Africa</td>
-    </tr>
-    <tr>
-      <td>AS</td>
-      <td>Asia</td>
-    </tr>
-    <tr>
-      <td>EU</td>
-      <td>
-        <Link to="/country_card">Europe</Link>
-        {/* <button onClick={props.history.push('/country_card')}/> */}
-      </td>
-    </tr>
-    <tr>
-      <td>NA/SA</td>
-      <td>Americas</td>
-    </tr>
-    <tr>
-      <td>OC</td>
-      <td>Oceania</td>
-    </tr>
-  </table>
-    <Switch>
-        <Route path="/country_card" component={CountryCard}/>
-    </Switch>
-  </div>
-  </Router>)
+        <tbody>
+          <tr>
+            <th>Continent Code</th>
+            <th>Continent Name</th> 
+          </tr>
+        
+          {props.regions.map(region=>
+            <tr>
+              <td>{region.code}</td>
+              <td key={region.name}>{region.name}</td>
+            </tr>)}
+
+        </tbody>
+      </table>
+
+    </div>
+  );
   
   //////////////////////////////////Working fetch////////////////////////////////////
   // const [error, setError] = useState(null);

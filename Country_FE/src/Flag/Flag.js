@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-
-function Flag(){
+import './Flag.css';
+function Flag(props){
   
   return(
-  <div>Flag</div>
+  <div><img id="flagImg" src={props.flagUrl}/></div>
   );
   
 }

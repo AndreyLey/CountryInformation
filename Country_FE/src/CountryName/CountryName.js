@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
-function CountryName() {
+function CountryName(props) {
     return (
-    <div>CountryName</div>
+    <div>
+        {props.name}
+        <br/>
+        {props.capital}
+    </div>
     );
 }
 

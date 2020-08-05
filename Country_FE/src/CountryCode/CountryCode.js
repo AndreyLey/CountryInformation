@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './CountryCode.css';
 
-function CountryCode(){
+function CountryCode(props){
     return (
     <div>
-      CountryCode
-      <h1>text</h1>
+      <h1>{props.code}</h1>
     </div>
     );
 }
