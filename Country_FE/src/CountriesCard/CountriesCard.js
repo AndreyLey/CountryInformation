@@ -1,14 +1,23 @@
-import React, { Component, useState,useEffect } from 'react';
-
+import React, { useState,useEffect } from 'react';
+import {Link} from 'react-router-dom';
+//props are: region, setCountry
 function CountriesCard(props) {
    
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [countries, setCountries] = useState([]);
 
+  const onClickSetCountry=(countryName)=>{
+    console.log('COUNTRY IS:'+countryName);
+    props.setCountry(countryName);
+  }
+
   const loadContent = async()=>{
-    try{
-      const response = await fetch("http://localhost:5000/regions/Europe/countries");
+    try{     
+      var url='';
+      console.log(url.concat('http://localhost:5000/regions/',props.region,'/countries'));
+      console.log(url);
+      const response = await fetch(url.concat('http://localhost:5000/regions/',props.region,'/countries'));//"http://localhost:5000/regions/Europe/countries");
       const json = await response.json();
       console.log(json);
       setCountries(json);
@@ -40,8 +49,8 @@ function CountriesCard(props) {
      <div>
        CountriesCard
        <ul>
-         {countries.map(country=>
-          <li> {country}</li>)}
+         {countries.map((country,i)=>
+          <li key={i}><Link to="/country_card" onClick={()=>onClickSetCountry(country)}>{country}</Link></li>)}
       </ul>
       {/* <CountryCode code={country.code}/>
       <CountryName name={country.name} capital={country.capital}/>

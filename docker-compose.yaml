@@ -2,7 +2,7 @@ version: '3'
 services:
 
   country-be:
-    image: "andreyley/country_proxy:1.0.1"
+    image: "andreyley/country_proxy:1.0.3"
     environment:
       - CASH_HOST=redis
       - CASH_PORT=6379

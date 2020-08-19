@@ -52,6 +52,10 @@ namespace CountryProxy.Services
                          settings
                      );
                 }
+                else
+                {
+                    Console.WriteLine("Responce is NULLLLLLLL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {0}", response.StatusCode);
+                }
                 return countries;
             }
             catch (Exception e)
@@ -87,6 +91,10 @@ namespace CountryProxy.Services
                          response.Content,
                          settings
                      );
+                }
+                else
+                {
+                    Console.WriteLine("Responce is NULLLLLLLL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {0}", response.StatusCode);
                 }
                 return countries;
             }

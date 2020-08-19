@@ -37,8 +37,9 @@ namespace CountryProxy.Services
             {
                 //Alternative go to the cash and try to find the region and and search in list of countries.
                 List<Country> countries=_countryLoader.GetCountryByName(countryName);
-                country = countries.First();
-                _cashConnector.AddCountryData(countryName, countries.First());
+                Console.WriteLine("Countries list's lenght is:{0}", countries.Count);
+                country = countries.FirstOrDefault();
+                _cashConnector.AddCountryData(countryName, countries.FirstOrDefault());
             }
             return country;
         }

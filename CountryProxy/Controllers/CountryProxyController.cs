@@ -24,15 +24,20 @@ namespace CountryProxy.Controllers
         }
 
         [HttpGet("regions")]
-        public IEnumerable<string> GetRegion()
+        public IActionResult GetRegion()
         {
-            return new List<string>() { "Amiricas","Europe","Asia","Oceania","Africa"};
+            return new JsonResult(new List<CodeRegion>() {
+                new CodeRegion("NA/SA","Americas"),
+                new CodeRegion("EU","Europe"),
+                new CodeRegion("AS","Asia"),
+                new CodeRegion("OC","Oceania"),
+                new CodeRegion("AF","Africa")
+            });
         }
 
         [HttpGet("regions/{region}/countries")]
         public IActionResult GetCountries(string region)
         {
-            //CountryResult result = new CountryResult(_countryProxyService.GetCountriesByRegion(region));
             return new JsonResult(_countryProxyService.GetCountriesByRegion(region));
         }
 

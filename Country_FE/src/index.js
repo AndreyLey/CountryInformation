@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
-import ContinentCard from './ContinentCard/ContinentCard';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import 'fontsource-roboto';
